@@ -15,15 +15,6 @@ Before pushing, check if any of the shipped changes affect areas documented in C
 
 Then run `git push origin HEAD`. Then run `gh pr create --base main --title "<commit subject>" --body "<2–4 bullet summary + one \`Refs #<n>\` line per shipped task>"` (or find the existing PR with `gh pr view` and add any missing `Refs` lines with `gh pr edit --body`).
 
-## Google Chat post (space "app.headerpath.com")
-
-After the PR exists, post a short summary to the space via its incoming webhook. The URL lives only in `~/Documents/CC/headerpath-app/.env.local` as `GOOGLE_CHAT_WEBHOOK_URL` (both repos read it from there; never copy it elsewhere, never print it).
-
-- Build the message: `🚢 <repo> — <PR title>` on line 1, then 2–4 bullets of what shipped (user-visible outcomes, ≤ 12 words each), then the PR URL.
-- Send it with one command; the message is JSON in `{"text": "..."}` (write the body to a scratch file with a heredoc first so quoting never breaks):
-  `curl -s -o /dev/null -w "%{http_code}" -X POST -H 'Content-Type: application/json; charset=UTF-8' --data @<file> "$(grep '^GOOGLE_CHAT_WEBHOOK_URL=' ~/Documents/CC/headerpath-app/.env.local | cut -d= -f2- | tr -d '"')"`
-- A non-200 response or a missing env var never blocks the ship — add one line `Chat post: failed (<code>)` to the report and move on.
-
 ## Report — exact URLs to check, nothing else
 
 The report must be a 1-click checklist: every line a **full, clickable URL** on the local preview. Never report a bare path or a slug.
@@ -43,7 +34,6 @@ The report must be a 1-click checklist: every line a **full, clickable URL** on 
 - Check:
   - `<full url>` — what to look for (≤ 8 words)
   - `<full url>` — …
-- Chat post: `sent` / `failed (<code>)`
 
 ## 👉 NEXT STEP — always the very last thing you print
 
