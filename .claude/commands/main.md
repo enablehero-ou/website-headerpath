@@ -15,19 +15,7 @@ Merge the current branch's open PR to `main`, deploy to production, sync `dev`.
 
 6. Confirm the **Deploy to GitHub Pages** workflow run for `main` started and succeeded (`gh run list --workflow deploy.yml --branch main --limit 1`, then `gh run watch <id>`). **IF no run appears within ~1 minute, or it fails** → **THEN** say so explicitly rather than assuming it deployed.
 7. **Close the shipped tasks.** For every `Refs #<n>` in the merged PR body: `gh issue close <n>` and set its Status to **Done** on the project board (project #4, same `gh project item-edit` call as `/ship`).
-8. Post the **Google Chat summary** below.
-9. Report the merged PR URL, the production deployment URL/status, and `Chat post: sent / failed (<code>)`.
-
-## Google Chat post (space "app.headerpath.com") — after the merge
-
-Post the **final** summary of what actually landed on `main` (read it from the squashed commit, `git show --stat main`, not from the pre-merge PR description — the PR may have changed after `/ship`). Webhook URL: `GOOGLE_CHAT_WEBHOOK_URL` in `~/Documents/CC/headerpath-app/.env.local` (both repos read it from there; never print it).
-
-- Line 1: `✅ Live — <repo> — <PR title>` (title from `gh pr view <n> --json title`).
-- Line 2: `<date> <time> Athens` — `TZ=Europe/Athens date '+%Y-%m-%d %H:%M'`.
-- Then 2–5 bullets "What it includes" (user-visible outcomes, ≤ 12 words each), then the PR URL, then `https://www.headerpath.com`.
-- Write the `{"text": "..."}` body to a scratch file with a heredoc, then:
-  `curl -s -o /dev/null -w "%{http_code}" -X POST -H 'Content-Type: application/json; charset=UTF-8' --data @<file> "$(grep '^GOOGLE_CHAT_WEBHOOK_URL=' ~/Documents/CC/headerpath-app/.env.local | cut -d= -f2- | tr -d '"')"`
-- A non-200 never blocks anything — report `Chat post: failed (<code>)` and move on.
+8. Report the merged PR URL and the production deployment URL/status.
 
 ## 👉 NEXT STEP — always the very last thing you print
 

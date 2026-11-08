@@ -5,7 +5,7 @@ Delete any `PLAN-*.md` files in the project root (use `rm -f PLAN-*.md` — sile
 All tasks live on the GitHub Project **headerpath-website tasks** (`enablehero-ou`, project #4 — https://github.com/orgs/enablehero-ou/projects/4). Update it before committing:
 
 - **Shipped by this branch** → find the matching tasks (`gh project item-list 4 --owner enablehero-ou --format json`) and set their Status to **QA**. `/main` moves them to Done.
-- **New follow-ups surfaced by the work** → one issue each in `enablehero-ou/headerpath-website` (assignee `qurioos`, `**Due: YYYY-MM-DD**` at the top of the body, one `type: …` and one `priority: …` label), then `gh project item-add 4 --owner enablehero-ou --url <issue-url>` and set Status to **To Do**.
+- **New follow-ups surfaced by the work** → one issue each in `enablehero-ou/website-headerpath` (assignee `qurioos`, `**Due: YYYY-MM-DD**` at the top of the body, one `type: …` and one `priority: …` label), then `gh project item-add 4 --owner enablehero-ou --url <issue-url>` and set Status to **To Do**.
 - Set Status with `gh project item-edit --id <item-id> --project-id <project-id> --field-id <Status field id> --single-select-option-id <option id>`; read the ids with `gh project field-list 4 --owner enablehero-ou --format json`.
 - Reference each shipped issue in the PR body as `Refs #<n>` so the task links to the PR.
 
@@ -14,15 +14,6 @@ Run `git add -A`, then inspect all changes on this branch (compare to main) to i
 Before pushing, check if any of the shipped changes affect areas documented in CLAUDE.md (new routes, changed config/tokens, new components, new i18n strings, new content collections, connections, etc.). If yes, update only the affected sections of CLAUDE.md to reflect the current reality. CLAUDE.md is infrastructure/context only — no logs or dated markers. Then `git add CLAUDE.md` and amend the commit with `git commit --amend --no-edit`.
 
 Then run `git push origin HEAD`. Then run `gh pr create --base main --title "<commit subject>" --body "<2–4 bullet summary + one \`Refs #<n>\` line per shipped task>"` (or find the existing PR with `gh pr view` and add any missing `Refs` lines with `gh pr edit --body`).
-
-## Google Chat post (space "app.headerpath.com")
-
-After the PR exists, post a short summary to the space via its incoming webhook. The URL lives only in `~/Documents/CC/headerpath-app/.env.local` as `GOOGLE_CHAT_WEBHOOK_URL` (both repos read it from there; never copy it elsewhere, never print it).
-
-- Build the message: `🚢 <repo> — <PR title>` on line 1, then 2–4 bullets of what shipped (user-visible outcomes, ≤ 12 words each), then the PR URL.
-- Send it with one command; the message is JSON in `{"text": "..."}` (write the body to a scratch file with a heredoc first so quoting never breaks):
-  `curl -s -o /dev/null -w "%{http_code}" -X POST -H 'Content-Type: application/json; charset=UTF-8' --data @<file> "$(grep '^GOOGLE_CHAT_WEBHOOK_URL=' ~/Documents/CC/headerpath-app/.env.local | cut -d= -f2- | tr -d '"')"`
-- A non-200 response or a missing env var never blocks the ship — add one line `Chat post: failed (<code>)` to the report and move on.
 
 ## Report — exact URLs to check, nothing else
 
@@ -43,7 +34,6 @@ The report must be a 1-click checklist: every line a **full, clickable URL** on 
 - Check:
   - `<full url>` — what to look for (≤ 8 words)
   - `<full url>` — …
-- Chat post: `sent` / `failed (<code>)`
 
 ## 👉 NEXT STEP — always the very last thing you print
 

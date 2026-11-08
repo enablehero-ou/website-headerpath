@@ -1,4 +1,4 @@
-# CLAUDE.md — headerpath-website
+# CLAUDE.md — website-headerpath
 
 Website-specific guidance. Read alongside the parent CLAUDE.md one level up.
 
@@ -73,7 +73,7 @@ is the **marketing website** only.
 | Surface | Role | Details |
 |---|---|---|
 | **GitHub Pages** | Hosting | `.github/workflows/deploy.yml` (`withastro/action`) builds and deploys on every push to `main`. Custom domain `headerpath.com` via `public/CNAME`. No previews. |
-| **GitHub** | Source / CI | `enablehero-ou/headerpath-website` (private). `dev` → PR → `main`. No CI workflows yet (`.github/workflows` empty). |
+| **GitHub** | Source / CI | `enablehero-ou/website-headerpath` (private). `dev` → PR → `main`. No CI workflows yet (`.github/workflows` empty). |
 | **app.qurioos.com** | Product app (backend) | Login/product app — stays on qurioos infra until the app migrates. Not built by this repo. |
 | **help.qurioos.com** | External help (Featurebase) | The original docs destination. The site now **self-hosts** help at `/help`; footer "Help" points internal. |
 | **Google Fonts** | Webfonts | Inter, Fraunces, JetBrains Mono — loaded in `BaseHead.astro`. |
@@ -254,7 +254,7 @@ taxonomy — see Content Collections.)
 ## Repo Structure
 
 ```
-headerpath-website/
+website-headerpath/
 ├── CLAUDE.md                 # This file — infrastructure + system context
 ├── README.md
 ├── astro.config.mjs          # static output, i18n, redirects
@@ -280,7 +280,7 @@ Keep the repo root to config + `CLAUDE.md` + `README.md`.
 ## Task tracking
 
 - All tasks live on the GitHub Project **[headerpath-website tasks](https://github.com/orgs/enablehero-ou/projects/4)** (org `enablehero-ou`, project #4). Create and update every task there — nowhere else.
-- New task = issue in `enablehero-ou/headerpath-website` + `gh project item-add 4 --owner enablehero-ou --url <issue-url>`. Issue rules (assignee, due date, labels) are in the parent CLAUDE.md.
+- New task = issue in `enablehero-ou/website-headerpath` + `gh project item-add 4 --owner enablehero-ou --url <issue-url>`. Issue rules (assignee, due date, labels) are in the parent CLAUDE.md.
 - Keep Status current: Backlog → To Do → In progress → QA → Done.
 
 ## Git Workflow
