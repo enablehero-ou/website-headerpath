@@ -5,7 +5,7 @@ Delete any `PLAN-*.md` files in the project root (use `rm -f PLAN-*.md` — sile
 All tasks live on the GitHub Project **headerpath-website tasks** (`enablehero-ou`, project #4 — https://github.com/orgs/enablehero-ou/projects/4). Update it before committing:
 
 - **Shipped by this branch** → find the matching tasks (`gh project item-list 4 --owner enablehero-ou --format json`) and set their Status to **QA**. `/main` moves them to Done.
-- **New follow-ups surfaced by the work** → one issue each in `enablehero-ou/headerpath-website` (assignee `qurioos`, `**Due: YYYY-MM-DD**` at the top of the body, one `type: …` and one `priority: …` label), then `gh project item-add 4 --owner enablehero-ou --url <issue-url>` and set Status to **To Do**.
+- **New follow-ups surfaced by the work** → one issue each in `enablehero-ou/website-headerpath` (assignee `qurioos`, `**Due: YYYY-MM-DD**` at the top of the body, one `type: …` and one `priority: …` label), then `gh project item-add 4 --owner enablehero-ou --url <issue-url>` and set Status to **To Do**.
 - Set Status with `gh project item-edit --id <item-id> --project-id <project-id> --field-id <Status field id> --single-select-option-id <option id>`; read the ids with `gh project field-list 4 --owner enablehero-ou --format json`.
 - Reference each shipped issue in the PR body as `Refs #<n>` so the task links to the PR.
 
